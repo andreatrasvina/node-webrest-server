@@ -34,7 +34,7 @@ export class Server {
         this.app.use(this.routes);
 
 
-        //evita los errores del enrutamiento en SPA
+        // //evita los errores del enrutamiento en SPA
         this.app.get('*', (req, res) => {
             const indexPath = path.join( __dirname + `../../../${this.publicPath}/index.html`);
             res.sendFile(indexPath);
