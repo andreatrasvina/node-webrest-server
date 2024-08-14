@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { TodosController } from "./controller";
+import { TodoDatasourceImpl } from "../../infraestructure/datasource/todo.datasource.impl";
+import { TodoRepositoryImpl } from "../../infraestructure/datasource/repositories/todo.repository.impl";
 
 //En esta clase solo van las rutas del TODO
 //Responde con el metodo get del controlador 
@@ -7,8 +9,13 @@ import { TodosController } from "./controller";
 export class TodoRoutes {
 
     static get routes(): Router {
+
         const router = Router();
-        const todoController = new TodosController();
+
+        const datasource = new TodoDatasourceImpl();
+        const todoRepository = new TodoRepositoryImpl(datasource);
+
+        const todoController = new TodosController(todoRepository);
 
         //GET - READ
         router.get('/', todoController.getTodos);
