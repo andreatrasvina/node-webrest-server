@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import path from 'path';
+import compression from 'compression';
 
 interface Options {
     port: number;
@@ -26,6 +27,7 @@ export class Server {
         //Middlewares
         this.app.use(express.json()); //serializa y convierte el archivo a json raw
         this.app.use(express.urlencoded({extended: true}) ); //permite x-www-form-urlencoded
+        this.app.use(compression());
 
         //Public Folder
         this.app.use(express.static(this.publicPath));
